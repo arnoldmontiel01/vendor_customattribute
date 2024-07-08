@@ -1,0 +1,31 @@
+<?php
+/**
+ * @var $block Vendor\CustomAttribute\Block\CustomAttributeDisplay
+ */
+$customAttributeValue = $block->getCustomAttributeValue();
+$isEnabled = $block->isCustomAttributeEnabled(); // Method to check if custom attribute is enabled
+?>
+<?php if ($isEnabled): ?>
+<form id="custom_attribute_form" action="<?= $block->escapeUrl($block->getActionUrl()) ?>" method="post">
+    <div class="fieldset custom-text-attribute">
+        <div class="field">
+            <label class="label" for="custom_text_attribute"><span><?php echo __('Custom Attribute') ?></span></label>
+            <div class="control">
+                <input type="text" id="custom_text_attribute" name="custom_text_attribute" value="<?php echo $customAttributeValue; ?>" class="input-text" data-validate="{required:true, 'validate-custom-attribute':true}" />
+            </div>
+        </div>
+    </div>
+    <button class="action primary" type="submit"><?php echo __('Validate'); ?></button>
+</form>
+    <script type="text/x-magento-init">
+        {
+            "#custom_attribute_form": {
+                "validation": {}
+            },
+            "#custom_text_attribute": {
+                "Vendor_CustomAttribute/js/validation/custom-attribute-validator": {
+                }
+            }
+        }
+    </script>
+<?php endif; ?>
